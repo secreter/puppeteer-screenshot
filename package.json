@@ -1,0 +1,11 @@
+{
+  "name": "puppeteer-screenshot",
+  "version": "1.0.0",
+  "description": "puppeteer screenshot service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "so <so@redream.cn>",
+  "license": "ISC"
+}
