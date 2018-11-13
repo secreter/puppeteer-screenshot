@@ -10,16 +10,8 @@ const screenshot=new Screenshot();
 async function getMethod (ctx) {
   ctx.type = 'image/png';
   let options={
-    url:'https://zhaoqize.github.io/puppeteer-api-zh_CN',
-    style:{
-      content:'body{background:#999}'
-    },
-    script:{
-      content:`
-        document.body.innerText='change by js'
-      `
-    },
-    html:'<h1>hello</h1>h1>'
+    url:ctx.query.url||'http://www.redream.cn',
+
   }
   ctx.body=await screenshot.getImage(options)
 }
