@@ -34,7 +34,12 @@ async function getMethod (ctx) {
 }
 
 async function postMethod (ctx) {
-  let options={}
+  let params=ctx.request.body
+  let options={
+      url:params.url,
+      screenshot:{},
+      html:'<a>sss</a>'
+  }
   if(!(options=checkOption(options,ctx))) return
   ctx.type = options.screenshot.type;
   ctx.body=await instance.getImage(options)
@@ -57,6 +62,7 @@ function checkOption(option,ctx){
         ctx.body=Boom.badRequest(`quality is a number`).output;
         return false
     }
+    screenshot.omitBackground=!!screenshot.omitBackground
     if(option.device&&deviceNames.indexOf(option.device)===-1){
         ctx.body=Boom.badRequest(`invalid device. Optional [${deviceNames}]`).output;
         return false
