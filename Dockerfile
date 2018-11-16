@@ -33,7 +33,8 @@ RUN npm install pm2 -g \
     && pm2 install pm2-logrotate \
     && pm2 set pm2-logrotate:max_size 100M \
     && pm2 set pm2-logrotate:retain 100 \
-    && mkdir -p /project
+    && mkdir -p /project \
+    && chmod -R 777 /project
 
 WORKDIR /project
 
