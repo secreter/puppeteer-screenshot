@@ -47,7 +47,7 @@ RUN  mkdir -p /home/pptruser/Downloads
 
 RUN  chown -R pptruser:pptruser /home/pptruser
 
-RUN  chown -R pptruser:pptruser /node_modules
+RUN  chown -R pptruser:pptruser ./node_modules
 
 # Run everything after as non-privileged user.
 USER pptruser
