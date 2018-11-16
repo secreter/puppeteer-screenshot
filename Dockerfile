@@ -27,16 +27,6 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 # Install puppeteer so it's available in the container.
 #RUN npm i puppeteer
-
-# Add user so we don't need --no-sandbox.
-RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-    && mkdir -p /home/pptruser/Downloads \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /node_modules
-
-# Run everything after as non-privileged user.
-USER pptruser
-
 RUN npm install pm2 -g \
     && pm2 install pm2-logrotate \
     && pm2 set pm2-logrotate:max_size 100M \
@@ -48,6 +38,15 @@ WORKDIR /project
 COPY . /project
 
 RUN npm install
+
+# Add user so we don't need --no-sandbox.
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /node_modules
+
+# Run everything after as non-privileged user.
+USER pptruser
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["pm2-runtime", "pm2.json"]
