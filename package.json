@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "dev": "nodemon ./src/server.js",
+    "start": "pm2 start ./pm2.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "so <so@redream.cn>",

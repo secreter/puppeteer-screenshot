@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "puppeteer",
+    "script": "src/server.js",
+    "kill_timeout": 5000,
+    "error_file": "logs/puppeteer-screenshot-out.log",
+    "out_file": "logs/puppeteer-screenshot-out.log",
+    "merge_logs": true,
+    "max_memory_restart": "1024M"
+  }]
+}

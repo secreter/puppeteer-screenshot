@@ -37,8 +37,12 @@ async function postMethod (ctx) {
   let params=ctx.request.body
   let options={
       url:params.url,
-      screenshot:{},
-      html:'<a>sss</a>'
+      screenshot:params.screenshot,
+      html:params.html,
+      style:params.style,
+      script:params.script,
+      waitFor:params.waitFor,
+      device:params.device
   }
   if(!(options=checkOption(options,ctx))) return
   ctx.type = options.screenshot.type;
@@ -46,13 +50,16 @@ async function postMethod (ctx) {
 }
 
 function checkOption(option,ctx){
-    let screenshot=option.screenshot
-    if(!screenshot.fullPage){
-        delete screenshot.clip
-    }
+    let screenshot=option.screenshot||{type:'png'}
+    let style=option.style
+    let script =option.script
+
     if(!/^https?:\/\/.+/.test(option.url)){
         ctx.body=Boom.badRequest('invalid url').output;
         return false
+    }
+    if(!screenshot.fullPage){
+        delete screenshot.clip
     }
     if(screenshot.type&&!/^jpeg$|^png$/.test(screenshot.type)){
         ctx.body=Boom.badRequest('invalid type. Optional [jpeg,png]').output;
@@ -67,9 +74,25 @@ function checkOption(option,ctx){
         ctx.body=Boom.badRequest(`invalid device. Optional [${deviceNames}]`).output;
         return false
     }else{
-        option.device=devices[option.device]
+        option.device=devices[option.device||'iPhone 8']
+    }
+    option.screenshot=screenshot
+
+    if(style&&typeof style!=='object'){
+        ctx.body=Boom.badRequest(`style must be an object. {url,content}`).output;
+        return false
+    }
+    if(style&&style.content){
+        delete style.url
     }
 
+    if(script&&typeof script!=='object'){
+        ctx.body=Boom.badRequest(`script must be an object. {url,content,type}`).output;
+        return false
+    }
+    if(script&&script.content){
+        delete script.url
+    }
 
     return option
 }
