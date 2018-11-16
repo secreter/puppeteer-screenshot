@@ -1,5 +1,7 @@
 FROM node:8-slim
 
+ENV PORT 8555
+
 # See https://crbug.com/795759
 RUN apt-get update && apt-get install -yq libgconf-2-4
 
@@ -40,17 +42,20 @@ COPY . /project
 RUN npm install
 
 # Add user so we don't need --no-sandbox.
-RUN groupadd -r pptruser
-RUN useradd -r -g pptruser -G audio,video pptruser
+RUN groupadd -r pptruser \
 
-RUN  mkdir -p /home/pptruser/Downloads
+    && useradd -r -g pptruser -G audio,video pptruser \
 
-RUN  chown -R pptruser:pptruser /home/pptruser
+    && mkdir -p /home/pptruser/Downloads \
 
-RUN  chown -R pptruser:pptruser ./node_modules
+    && chown -R pptruser:pptruser /home/pptruser \
+
+    && chown -R pptruser:pptruser ./node_modules
 
 # Run everything after as non-privileged user.
 USER pptruser
+
+EXPOSE  8555
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["pm2-runtime", "pm2.json"]
