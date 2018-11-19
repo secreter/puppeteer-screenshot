@@ -59,8 +59,23 @@ function checkOption(option,ctx){
         ctx.body=Boom.badRequest('invalid url').output;
         return false
     }
-    if(!screenshot.fullPage){
+    if(screenshot.fullPage){
         delete screenshot.clip
+    }
+    if(screenshot.clip&&typeof screenshot.clip!=='object'){
+        ctx.body=Boom.badRequest('invalid screenshot.clip').output;
+        return false
+    }else if(Number.isNaN(Number(screenshot.clip.x))||
+        Number.isNaN(Number(screenshot.clip.y))||
+        Number.isNaN(Number(screenshot.clip.width))||
+        Number.isNaN(Number(screenshot.clip.height))){
+        ctx.body=Boom.badRequest('invalid screenshot.clip').output;
+        return false
+    }else{
+        screenshot.clip.x=Number(screenshot.clip.x)
+        screenshot.clip.y=Number(screenshot.clip.y)
+        screenshot.clip.width=Number(screenshot.clip.width)
+        screenshot.clip.height=Number(screenshot.clip.height)
     }
     if(screenshot.type&&!/^jpeg$|^png$/.test(screenshot.type)){
         ctx.body=Boom.badRequest('invalid type. Optional [jpeg,png]').output;
