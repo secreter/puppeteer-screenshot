@@ -50,9 +50,10 @@ async function postMethod (ctx) {
 }
 
 function checkOption(option,ctx){
-    let screenshot=option.screenshot||{type:'png'}
+    let screenshot=option.screenshot||{}
     let style=option.style
     let script =option.script
+    screenshot.type=screenshot.type?screenshot.type:'png'
 
     if(!/^https?:\/\/.+/.test(option.url)){
         ctx.body=Boom.badRequest('invalid url').output;
