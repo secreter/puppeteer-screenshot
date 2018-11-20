@@ -30,7 +30,11 @@ async function getMethod (ctx) {
   }
   if(!(options=checkOption(options,ctx))) return
   ctx.type = options.screenshot.type;
-  ctx.body=await instance.getImage(options)
+  try{
+    ctx.body=await instance.getImage(options)
+  }catch (e) {
+    ctx.body=Boom.gatewayTimeout(e.message||'Service Unavailable').output;
+  }
 }
 
 async function postMethod (ctx) {
@@ -46,7 +50,11 @@ async function postMethod (ctx) {
   }
   if(!(options=checkOption(options,ctx))) return
   ctx.type = options.screenshot.type;
-  ctx.body=await instance.getImage(options)
+  try{
+      ctx.body=await instance.getImage(options)
+  }catch (e) {
+      ctx.body=Boom.gatewayTimeout(e.message||'Service Unavailable').output;
+  }
 }
 
 function checkOption(option,ctx){
@@ -62,9 +70,16 @@ function checkOption(option,ctx){
     if(screenshot.fullPage){
         delete screenshot.clip
     }
-    if(screenshot.clip&&typeof screenshot.clip!=='object'){
+    if(!screenshot.clip){
+        //pass
+    }else if(screenshot.clip&&typeof screenshot.clip!=='object'){
         ctx.body=Boom.badRequest('invalid screenshot.clip').output;
         return false
+    }else if(screenshot.clip.x==undefined&&
+        screenshot.clip.y==undefined&&
+        screenshot.clip.width==undefined&&
+        screenshot.clip.height==undefined){
+        delete screenshot.clip
     }else if(Number.isNaN(Number(screenshot.clip.x))||
         Number.isNaN(Number(screenshot.clip.y))||
         Number.isNaN(Number(screenshot.clip.width))||
