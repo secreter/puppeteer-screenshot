@@ -19,6 +19,22 @@
 | device  | iPhone 8  | false  | 模拟设备，可选值[参考][2]  |
 |   |   |   |   |
 
+### POST /
+| arguments  | type | default  | required  | desc  |
+|---|---|---|---| --- |
+| url  | string  | -  | false  |  和html属性至少有一个，html属性优先级高    |
+| html  | string  | -  | false  | 要渲染的html代码   |
+| screenshot  | object  | -  | false  |  [参考][3]  |
+| device  | string  | iPhone 8  | false  |  可选值[参考][4]  |
+|  style | string  | -  | false  | [参考][5]   |
+| script  | string  | -  | false  | [参考][6]   |
+|  waitFor | string/number  | -  | false  |  [参考][7]  |
+
 
   [1]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pagescreenshotoptions
   [2]: https://github.com/GoogleChrome/puppeteer/blob/master/DeviceDescriptors.js
+  [3]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pagescreenshotoptions
+  [4]: https://github.com/GoogleChrome/puppeteer/blob/master/DeviceDescriptors.js
+  [5]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pageaddstyletagoptions
+  [6]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pageaddscripttagoptions
+  [7]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pagewaitforselectororfunctionortimeout-options-args
