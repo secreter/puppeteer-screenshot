@@ -96,7 +96,7 @@ function checkOption(option,ctx){
         ctx.body=Boom.badRequest('invalid type. Optional [jpeg,png]').output;
         return false
     }
-    if(screenshot.quality&&!Number.isInteger(screenshot.quality)){
+    if(screenshot.quality&&!Number.isInteger(screenshot.quality=+screenshot.quality)){
         ctx.body=Boom.badRequest(`quality is a number`).output;
         return false
     }
