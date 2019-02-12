@@ -26,6 +26,7 @@ async function getMethod (ctx) {
       },
       omitBackground:ctx.query.o
     },
+    waitFor:ctx.query.waitFor,
     device:ctx.query.device
   }
   if(!(options=checkOption(options,ctx))) return
@@ -109,6 +110,9 @@ function checkOption(option,ctx){
     }
     option.screenshot=screenshot
 
+    if(option.waitFor&&isNumber(option.waitFor)){
+      option.waitFor=+option.waitFor
+    }
     if(style&&typeof style!=='object'){
         ctx.body=Boom.badRequest(`style must be an object. {url,content}`).output;
         return false
@@ -126,6 +130,10 @@ function checkOption(option,ctx){
     }
 
     return option
+}
+
+function isNumber(str){
+  return +str==str
 }
 
 module.exports={

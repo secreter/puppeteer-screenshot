@@ -33,7 +33,7 @@ class Screenshot{
     }else{
       await page.goto(url,{
         waitUntil: 'load',
-        timeout: 5000
+        timeout: 9000
       });
     }
     if(typeof style==='object') {

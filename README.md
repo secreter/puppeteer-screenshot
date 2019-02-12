@@ -17,7 +17,7 @@
 | h  |  200 |  false |  裁剪的高度 |
 | o  |  false | false  | 隐藏默认的白色背景，背景透明  |
 | device  | iPhone 8  | false  | 模拟设备，可选值[参考][2]  |
-|   |   |   |   |
+|  waitFor |  - | false  | string/number [参考][7] |
 
 ### POST /
 | arguments  | type | default  | required  | desc  |
@@ -37,4 +37,4 @@
   [4]: https://github.com/GoogleChrome/puppeteer/blob/master/DeviceDescriptors.js
   [5]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pageaddstyletagoptions
   [6]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pageaddscripttagoptions
-  [7]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pagewaitforselectororfunctionortimeout-options-args
+  [7]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#?product=Puppeteer&version=v1.12.2&show=api-pagewaitforselectororfunctionortimeout-options-args
