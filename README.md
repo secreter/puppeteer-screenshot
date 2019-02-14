@@ -2,7 +2,25 @@
 
 
 
-### 
+### Install
+* node
+```shell
+npm i
+npm start
+
+```
+* docker
+```shell
+docker pull redream/puppeteer-screenshot
+docker run -d -p 8555:8555 redream/puppeteer-screenshot
+```
+
+### Usage
+```
+http://localhost:8555/?url=https://www.baidu.com
+```
+
+
 
 #### GET /   可[参考][1]
 | arguments  | default  | required  | desc  |
