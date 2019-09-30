@@ -48,6 +48,8 @@ http://localhost:8555/?url=https://www.baidu.com
 | script  | string  | -  | false  | [参考][6]   |
 |  waitFor | string/number  | -  | false  |  [参考][7]  |
 
+### fonts
+http://www.fonts.net.cn/fonts-zh/tag-shouxie2-13.html
 
   [1]: https://zhaoqize.github.io/puppeteer-api-zh_CN/#/class-Page?id=pagescreenshotoptions
   [2]: https://github.com/GoogleChrome/puppeteer/blob/master/DeviceDescriptors.js
