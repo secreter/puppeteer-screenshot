@@ -23,7 +23,8 @@ ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_a
 RUN chmod +x /usr/local/bin/dumb-init
 # install fonts
 COPY ./src/fonts/ /usr/share/fonts/chinese
-RUN fc-cache -f -v
+RUN chmod -R 755 /usr/share/fonts/ \
+    && fc-cache -f -v
 # Uncomment to skip the chromium download when installing puppeteer. If you do,
 # you'll need to launch puppeteer with:
 #     browser.launch({executablePath: 'google-chrome-unstable'})
