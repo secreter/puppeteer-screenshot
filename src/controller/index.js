@@ -5,6 +5,9 @@ const Screenshot = require('../lib/Screenshot');
 const Boom = require('boom');
 const devices=require('../lib/DeviceDescriptors');
 const deviceNames=devices.map(device=>device.name)
+const AsyncFunction =Object.getPrototypeOf(async function(){}).constructor
+const puppeteer=require('puppeteer')
+
 
 const instance=new Screenshot();
 (async ()=>{
@@ -132,11 +135,31 @@ function checkOption(option,ctx){
     return option
 }
 
+async function runner(ctx){
+    const {code='return hello browser'}=ctx.request.body||ctx.query
+    const exec=new AsyncFunction('runtime',`
+        with(runtime){${code}}
+    `)
+    try{
+        ctx.body= await exec({
+            browser:instance.browser,
+            puppeteer:puppeteer
+        })
+    }catch (e){
+        console.error(e)
+        ctx.body= {
+            code:-1,
+            error:e.message
+        }
+    }
+}
+
 function isNumber(str){
   return +str==str
 }
 
 module.exports={
   getMethod,
-  postMethod
+  postMethod,
+  runner
 }

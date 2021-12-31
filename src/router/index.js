@@ -3,9 +3,11 @@
  */
 const Router = require('koa-router');
 const router = new Router();
-const {getMethod,postMethod}=require('../controller/index')
+const {getMethod,postMethod,runner}=require('../controller/index')
 router
   .get('/', getMethod)
   .post('/', postMethod)
+  .post('/run', runner)
+  .get('/run', runner)
 
 module.exports=router.routes()
